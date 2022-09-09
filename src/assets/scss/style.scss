@@ -45,15 +45,19 @@
     padding: 0 20px;
 }
 
+div.col-auto {
+    padding: 0 16px 0 0;
+}
+
 .brand-text {
     font-size: 18px;
     font-weight: 700;
-    color: $gray-900;
+    color: $gray-800;
     margin-right: 10px;
 }
 
 header {
-    border-bottom: 1px solid $gray-200;
+    border-bottom: 1px solid $gray-300;
 
     .navbar {
         height: 64px;
@@ -62,8 +66,9 @@ header {
 }
 
 .btn {
-    
-    
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 
     &-compact {
         height: 28px;
@@ -72,5 +77,133 @@ header {
         font-weight: 700;
         line-height: 20px;
         padding: 4px 16px;
+    }
+
+    &-plain {
+        background-color: transparent;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 20px;
+        padding: 0;
+        color: $gray-900;
+
+        img {
+            height: 16.7px;
+            color: #333333;
+        }
+    }
+
+    img {
+        padding-right: 6.5px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}
+
+.card {
+    margin-right: 0;
+    border-radius: 4px;
+    width: 326px;
+    
+    &.primary-outline {
+        color: $primary;
+        background-color: $light-primary-fill;
+        border: 1px solid $light-primary-outline;
+    }
+
+    .card-subtitle {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 20px;
+        color: $gray-700;
+    }
+
+    .card-item {
+        color: $gray-700;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 24px;
+        background-color: $gray-100;
+        border: 1px solid $gray-300;
+        border-radius: 4px;
+        padding: 16px;
+        margin-bottom: 12px;
+
+        hr {
+            margin: 8px 0;
+            border-style: dashed;
+            border-color: $gray-300;
+        }
+        &:last-of-type {
+            margin-bottom: 8px;
+        }
+    }
+}
+
+.badge {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 20px;
+    padding: 2px 8px;
+    border-radius: 4px;
+
+    &.primary-outline {
+        color: $primary;
+        background-color: $light-primary-fill;
+        border: 1px solid $light-primary-outline;
+    }
+}
+
+.detail-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    height: 24px;
+    width: 100%;
+
+    img {
+        height: 24px;
+        width: 24px;
+        margin-left: auto;
+    }
+}
+
+.progress-wrapper {
+    display: flex;
+    flex-direction: row;
+    height: 16px;
+
+    .progress {
+        min-width: 175px;
+        height: 16px;
+        border-radius: 500px;
+        background-color: $gray-200;
+
+        &-bar {
+            background-color: $primary;
+        }
+        
+        &-bar.complete {
+            background-color: $success;
+        }
+
+        &-bar.failed {
+            background-color: $danger;
+        }
+    }
+
+    img {
+        height: 16px;
+        width: 16px;
+        margin-left: 14px;
+    }
+
+    span {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+        margin-left: 14px;
+        color: $gray-600;
     }
 }

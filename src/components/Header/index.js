@@ -1,4 +1,5 @@
 import React from 'react'
+import {Button} from 'components'
 import Plus from 'assets/icons/plus.svg'
 
 export default function Header() {
@@ -6,8 +7,8 @@ export default function Header() {
     <header className="spacing-sm">
         <div className="container">
             <nav className="navbar navbar-expand-lg navbar-light">
-				<span class='brand-text'>Product Roadmap</span>
-        <button class="btn btn-primary btn-compact" style={{display: 'flex', flexDirection: 'row', alignItems: 'center'}} ><img src={Plus} style={{paddingRight: '6.5px'}}/> Add New Group</button>
+				<span className='brand-text'>Product Roadmap</span>
+        <Button isPrimary isCompact icon={Plus}>Add New Group</Button>
 			</nav>
 		</div>
     </header>
