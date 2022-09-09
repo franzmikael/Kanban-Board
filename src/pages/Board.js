@@ -80,14 +80,12 @@ export default function Board() {
         <div className="row px-3">
             {listTodos.map((todo) => {
               return (
-                <div className="col-auto">
-                  <Todo 
-                    key={todo.id}
-                    id={todo.id}
-                    title={todo.title} 
-                    todoItems={listTodoItems.filter((item) => {return item.todo_id === todo.id})}
-                  />
-                </div>
+                <Todo
+                  key={todo.id}
+                  id={todo.id}
+                  title={todo.title} 
+                  todoItems={listTodoItems.filter((item) => {return item.todo_id === todo.id})}
+                />
               )
             })}
         </div>

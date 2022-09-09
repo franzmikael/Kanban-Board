@@ -1,5 +1,5 @@
 import React from 'react'
-import propTypes from 'prop-types';
+import propTypes from 'prop-types'
 
 export default function Button(props) {
   const className = [props.className];

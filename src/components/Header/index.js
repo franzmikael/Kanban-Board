@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button} from 'components'
+import {Button} from 'elements'
 import Plus from 'assets/icons/plus.svg'
 
 export default function Header() {
