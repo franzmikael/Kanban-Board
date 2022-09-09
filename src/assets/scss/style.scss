@@ -111,6 +111,24 @@ header {
         background-color: $light-primary-fill;
         border: 1px solid $light-primary-outline;
     }
+    
+    &.warning-outline {
+        color: $primary;
+        background-color: $light-warning-fill;
+        border: 1px solid $light-warning-outline;
+    }
+
+    &.danger-outline {
+        color: $primary;
+        background-color: $light-danger-fill;
+        border: 1px solid $light-danger-outline;
+    }
+
+    &.success-outline {
+        color: $primary;
+        background-color: $light-success-fill;
+        border: 1px solid $light-success-outline;
+    }
 
     .card-subtitle {
         font-weight: 700;
@@ -118,26 +136,31 @@ header {
         line-height: 20px;
         color: $gray-700;
     }
+}
 
-    .card-item {
-        color: $gray-700;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 24px;
-        background-color: $gray-100;
-        border: 1px solid $gray-300;
-        border-radius: 4px;
-        padding: 16px;
-        margin-bottom: 12px;
+.card-item {
+    color: $gray-700;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 24px;
+    background-color: $gray-100;
+    border: 1px solid $gray-300;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 12px;
 
-        hr {
-            margin: 8px 0;
-            border-style: dashed;
-            border-color: $gray-300;
-        }
-        &:last-of-type {
-            margin-bottom: 8px;
-        }
+    &.no-task {
+        padding: 8px 16px;
+        font-weight: 400;
+    }
+
+    hr {
+        margin: 8px 0;
+        border-style: dashed;
+        border-color: $gray-300;
+    }
+    &:last-of-type {
+        margin-bottom: 8px;
     }
 }
 
@@ -153,6 +176,24 @@ header {
         background-color: $light-primary-fill;
         border: 1px solid $light-primary-outline;
     }
+
+    &.warning-outline {
+        color: $warning;
+        background-color: $light-warning-fill;
+        border: 1px solid $light-warning-outline;
+    }
+
+    &.danger-outline {
+        color: $danger;
+        background-color: $light-danger-fill;
+        border: 1px solid $light-danger-outline;
+    }
+
+    &.success-outline {
+        color: $success;
+        background-color: $light-success-fill;
+        border: 1px solid $light-success-outline;
+    }
 }
 
 .detail-wrapper {
@@ -162,10 +203,12 @@ header {
     height: 24px;
     width: 100%;
 
-    img {
+    .btn {
         height: 24px;
         width: 24px;
+        padding: 0;
         margin-left: auto;
+        background-color: transparent;
     }
 }
 

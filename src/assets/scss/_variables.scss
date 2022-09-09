@@ -45,7 +45,13 @@ $green:   #43936C !default;
 $teal:    #20c997 !default;
 $cyan:    #17a2b8 !default;
 $light-blue:    #F7FEFF !default;
-$light-blue-2:    #4DB5BC !default;
+$light-blue-2:  #4DB5BC !default;
+$light-yellow:  #FFFCF5 !default;
+$light-yellow-2:#FEEABC !default;
+$light-red:     #FFFAFA !default;
+$light-red-2:   #F5B1B7 !default;
+$light-green:   #F8FBF9 !default;
+$light-green-2: #B8DBCA !default;
 
 $colors: () !default;
 $colors: map-merge((
@@ -74,6 +80,12 @@ $light:         $gray-100 !default;
 $dark:          $gray-800 !default;
 $light-primary-fill:    $light-blue !default;
 $light-primary-outline: $light-blue-2 !default;
+$light-warning-fill:    $light-yellow !default;
+$light-warning-outline: $light-yellow-2 !default;
+$light-danger-fill:     $light-red !default;
+$light-danger-outline:  $light-red-2 !default;
+$light-success-fill:    $light-green !default;
+$light-success-outline: $light-green-2 !default;
 
 $theme-colors: () !default;
 $theme-colors: map-merge((

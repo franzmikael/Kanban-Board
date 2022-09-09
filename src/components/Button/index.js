@@ -7,7 +7,7 @@ export default function Button(props) {
   if(props.isPrimary) className.push("btn-primary");
   if(props.isPlain) className.push("btn-plain");
   if(props.isCompact) className.push("btn-compact");
-  const hasIcon = props.hasOwnProperty('icon');
+  const hasIcon = props.hasOwnProperty("icon");
 
   const onClick = () => {
     if(props.onClick) props.onClick()
