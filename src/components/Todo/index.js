@@ -44,7 +44,7 @@ export default function Todo(props) {
             <div className={`card ${theme} p-3 mb-3`}>
                 <div className="card-body p-0">
                     <Label text={props.title} theme={theme}/>
-                    <h6 className="card-subtitle mb-2">January - March</h6>
+                    <h6 className="card-subtitle mb-2">{props.description}</h6>
                         {items}
                     <Button isPlain icon={PlusCircle}>New Task</Button>
                 </div>
@@ -55,5 +55,6 @@ export default function Todo(props) {
 
 Todo.propTypes = {
     title: propTypes.string,
+    description: propTypes.string,
     todoItems: propTypes.array
 }

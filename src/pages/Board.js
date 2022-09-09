@@ -7,6 +7,7 @@ export default function Board() {
     {
       "id": 1,
       "title": "Group Task 1",
+      "description": "January - March",
       "created_by": "1",
       "created_at": "2021-04-20T23:47:50.046Z",
       "updated_at": "2021-04-20T23:47:50.046Z"
@@ -14,6 +15,7 @@ export default function Board() {
     {
       "id": 2,
       "title": "Group Task 2",
+      "description": "April - June",
       "created_by": "1",
       "created_at": "2021-04-21T00:04:23.906Z",
       "updated_at": "2021-04-21T00:04:23.906Z"
@@ -21,6 +23,7 @@ export default function Board() {
     {
       "id": 3,
       "title": "Group Task 3",
+      "description": "July - September",
       "created_by": "1",
       "created_at": "2021-04-21T00:04:23.906Z",
       "updated_at": "2021-04-21T00:04:23.906Z"
@@ -28,6 +31,7 @@ export default function Board() {
     {
       "id": 4,
       "title": "Group Task 4",
+      "description": "October - December",
       "created_by": "1",
       "created_at": "2021-04-21T00:04:23.906Z",
       "updated_at": "2021-04-21T00:04:23.906Z"
@@ -83,7 +87,8 @@ export default function Board() {
                 <Todo
                   key={todo.id}
                   id={todo.id}
-                  title={todo.title} 
+                  title={todo.title}
+                  description={todo.description}
                   todoItems={listTodoItems.filter((item) => {return item.todo_id === todo.id})}
                 />
               )
