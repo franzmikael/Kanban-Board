@@ -1,8 +1,8 @@
-import React from 'react'
-import propTypes from 'prop-types'
-import { Button, Progress } from 'elements'
+import React from 'react';
+import propTypes from 'prop-types';
+import { Button, Progress } from 'elements';
 
-import More from 'assets/icons/more-horizontal.svg'
+import More from 'assets/icons/more-horizontal.svg';
 
 export default function TodoItem(props) {
 	if(props.noItem) {

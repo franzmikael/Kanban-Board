@@ -9,14 +9,14 @@ export default function Progress(props) {
     const [state, setState] = useState();
 
     useEffect(() => {
-        if (props.done === true) {
+        if (props.done === true || value === 100) {
             setState('complete');
         } else if (props.done === false) {
             setState('failed');
         } else {
             setState(null);
         }
-    }, [props])
+    }, [props, value])
 
     return (
         <div className="progress-wrapper">
