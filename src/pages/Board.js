@@ -11,7 +11,7 @@ export default function Board() {
 
 	return (
 		<>
-			<Header/>
+			<Header setListTodos={setListTodos} />
 			<section className="container p-4">
 				<div className="row px-3">
 					{listTodos.map((todo) => {

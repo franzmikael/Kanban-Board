@@ -84,6 +84,7 @@ export default function Todo(props) {
                 title='Create Task'
                 form={createItemForm}
                 formHandler={handleForm}
+				btnName='Save Task'
                 visible={visibleCreateItemModal}
                 setVisible={setVisibleCreateItemModal}
             />
