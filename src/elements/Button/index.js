@@ -5,8 +5,10 @@ export default function Button(props) {
   const className = [props.className];
   className.push("btn");
   if(props.isPrimary) className.push("btn-primary");
+  if(props.isOutline) className.push("btn-outline");
   if(props.isPlain) className.push("btn-plain");
   if(props.isCompact) className.push("btn-compact");
+  if(props.isIcon) className.push("btn-icon");
   const hasIcon = props.hasOwnProperty("icon");
 
   const onClick = () => {
@@ -30,8 +32,10 @@ Button.propTypes = {
   className: propTypes.string,
   icon: propTypes.string,
   isPrimary: propTypes.bool,
+  isOutline: propTypes.bool,
   isPlain: propTypes.bool,
   isCompact: propTypes.bool,
+  isIcon: propTypes.bool,
   isDisabled: propTypes.bool,
   isLoading: propTypes.bool,
 }

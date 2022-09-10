@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Button, Label } from 'elements';
-import { TodoItem } from 'components';
+import { TodoItem, CustomModal } from 'components';
 import { getTodoItems } from 'services';
 
 import PlusCircle from 'assets/icons/plus-circle.svg';
 
 export default function Todo(props) {
+    const [visibleCreateItemModal, setVisibleCreateItemModal] = useState(false);
     const [listTodoItems, setListTodoItems] = useState([]);
     const [theme, setTheme] = useState();
 
@@ -26,29 +27,39 @@ export default function Todo(props) {
     }, [props, theme])
 
     return (
-        <div className="col-auto">
-            <div className={`card ${theme} p-3 mb-3`}>
-                <div className="card-body p-0">
-                    <Label text={props.title} theme={theme}/>
-                    <h6 className="card-subtitle mb-2">{props.description}</h6>
-                        {listTodoItems.length !== 0 ? (
-                            listTodoItems.map((item) => {
-                                return(
-                                    <TodoItem
-                                        key={item.id}
-                                        name={item.name}
-                                        done={item.done}
-                                        progressPercentage={item.progress_percentage}
-                                    />
-                                )
-                            })
-                        ) : (
-                            <TodoItem name="No Task" noItem/>
-                        )}
-                    <Button isPlain icon={PlusCircle}>New Task</Button>
+        <>
+            <div className="col-auto">
+                <div className={`card ${theme} p-3 mb-3`}>
+                    <div className="card-body p-0">
+                        <Label text={props.title} theme={theme}/>
+                        <h6 className="card-subtitle mb-2">{props.description}</h6>
+                            {listTodoItems.length !== 0 ? (
+                                listTodoItems.map((item) => {
+                                    return(
+                                        <TodoItem
+                                            key={item.id}
+                                            name={item.name}
+                                            done={item.done}
+                                            progressPercentage={item.progress_percentage}
+                                        />
+                                    )
+                                })
+                            ) : (
+                                <TodoItem name="No Task" noItem/>
+                            )}
+                        <Button isPlain icon={PlusCircle} onClick={() => {setVisibleCreateItemModal(true)}}>New Task</Button>
+                    </div>
                 </div>
             </div>
-        </div>
+            <CustomModal
+                title='Create Task'
+                btnName='Save Task'
+                isDeleteModal
+                deleteText="Are you sure want to delete this task? your action can't be reverted."
+                visible={visibleCreateItemModal}
+                setVisible={setVisibleCreateItemModal}
+            />
+        </>
     )
 }
 

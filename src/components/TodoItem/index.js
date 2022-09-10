@@ -16,7 +16,7 @@ export default function TodoItem(props) {
 			<hr />
 			<div className="detail-wrapper">
 				<Progress done={props.done} percentage={props.progressPercentage} />
-				<Button icon={More} />
+				<Button isIcon icon={More} />
 			</div>
 		</div>
 	)
