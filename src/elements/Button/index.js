@@ -5,6 +5,7 @@ export default function Button(props) {
   const className = [props.className];
   className.push("btn");
   if(props.isPrimary) className.push("btn-primary");
+  if(props.isDanger) className.push("btn-danger");
   if(props.isOutline) className.push("btn-outline");
   if(props.isPlain) className.push("btn-plain");
   if(props.isCompact) className.push("btn-compact");
@@ -19,6 +20,7 @@ export default function Button(props) {
     <button
       className={className.join(" ")}
       style={props.style}
+      type={props.type}
       onClick={onClick}
     >
       {hasIcon && <img src={props.icon} alt='icon'/> }
@@ -30,8 +32,10 @@ export default function Button(props) {
 Button.propTypes = {
   onClick: propTypes.func,
   className: propTypes.string,
+  type: propTypes.string,
   icon: propTypes.string,
   isPrimary: propTypes.bool,
+  isDanger: propTypes.bool,
   isOutline: propTypes.bool,
   isPlain: propTypes.bool,
   isCompact: propTypes.bool,

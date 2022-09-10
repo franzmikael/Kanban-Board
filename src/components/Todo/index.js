@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { Button, Label } from 'elements';
-import { TodoItem, CustomModal } from 'components';
-import { getTodoItems } from 'services';
+import { Button, Label, CustomModal } from 'elements';
+import { TodoItem } from 'components';
+import { getTodoItems, createTodoItem } from 'services';
 
 import PlusCircle from 'assets/icons/plus-circle.svg';
 
@@ -12,7 +12,7 @@ export default function Todo(props) {
     const [theme, setTheme] = useState();
 
     useEffect(() => {
-        getTodoItems(props.id, setListTodoItems);
+        let res = getTodoItems(props.id, setListTodoItems);
         const color = parseInt(props.id)%4;
         switch (color) {
             case 1:
@@ -25,6 +25,35 @@ export default function Todo(props) {
                 setTheme('success-outline'); break;
         }
     }, [props, theme])
+
+    const createItemForm = [
+        {
+            type: 'text',
+            name: 'name',
+            label: 'Task Name',
+            placeholder: 'Type your Task'
+        }, {
+            type: 'text',
+            name: 'progress_percentage',
+            label: 'Progress',
+            placeholder: '70%',
+            style: {width: '40%'}
+        }
+    ]
+
+    function handleForm(event) {
+        event.preventDefault();
+        const form = new FormData(event.target);
+        const req = {};
+        form.forEach((value, key) => {
+            if (key === 'progress_percentage') {
+                req[key] = parseInt(value);
+            } else {
+                return req[key] = value}
+            }
+        );
+        createTodoItem(props.id, req, setListTodoItems);
+    }
 
     return (
         <>
@@ -45,7 +74,7 @@ export default function Todo(props) {
                                     )
                                 })
                             ) : (
-                                <TodoItem name="No Task" noItem/>
+                                <TodoItem name="No Task" empty/>
                             )}
                         <Button isPlain icon={PlusCircle} onClick={() => {setVisibleCreateItemModal(true)}}>New Task</Button>
                     </div>
@@ -53,9 +82,8 @@ export default function Todo(props) {
             </div>
             <CustomModal
                 title='Create Task'
-                btnName='Save Task'
-                isDeleteModal
-                deleteText="Are you sure want to delete this task? your action can't be reverted."
+                form={createItemForm}
+                formHandler={handleForm}
                 visible={visibleCreateItemModal}
                 setVisible={setVisibleCreateItemModal}
             />

@@ -5,7 +5,7 @@ import { Button, Progress } from 'elements';
 import More from 'assets/icons/more-horizontal.svg';
 
 export default function TodoItem(props) {
-	if(props.noItem) {
+	if(props.empty) {
 		return (
 			<div className="card-item no-task">No Task</div>
 		);
@@ -27,5 +27,5 @@ TodoItem.propTypes = {
     name: propTypes.string,
 	done: propTypes.bool,
 	progressPercentage: propTypes.number,
-	noItem: propTypes.bool
+	empty: propTypes.bool
 }

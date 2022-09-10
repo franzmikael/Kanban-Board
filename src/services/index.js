@@ -12,8 +12,9 @@ async function getTodos(setTodos) {
     setTodos(res);
 }
 
-async function createTodo(req) {
+async function createTodo(req, setTodos) {
     let res = await api.post('/todos', req).then((res) => {return res.data});
+    getTodos(setTodos);
 }
 
 async function getTodoItems(id, setTodoitems) {
@@ -21,4 +22,9 @@ async function getTodoItems(id, setTodoitems) {
     setTodoitems(res);
 }
 
-export {getTodos, createTodo, getTodoItems}
+async function createTodoItem(id, req, setTodoitems) {
+    let res = await api.post(`/todos/${id}/items`, req).then((res) => {return res.data});
+    getTodoItems(id, setTodoitems);
+}
+
+export {getTodos, createTodo, getTodoItems, createTodoItem}

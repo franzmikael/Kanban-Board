@@ -292,10 +292,18 @@ header {
         border-top-right-radius: 10px;
 
         .modal-title {
+            display: flex;
+            align-items: center;
             font-weight: 700;
             font-size: 18px;
             line-height: 28px;
             color: $gray-900;
+
+            img {
+                width: 24px;
+                height: 24px;
+                margin-right: 8px;
+            }
         }
 
         .modal-close {
@@ -313,14 +321,29 @@ header {
 
     .modal-body {
         padding: 0px 24px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 24px;
     }
 
     .modal-footer {
-        padding: 24px;
+        padding: 8px 24px 24px 24px;
         border: 0px;
+    }
+}
 
-        .btn {
+form {
+    .form-label {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 20px;
+        margin-bottom: 8px;
+    }
 
-        }
+    .form-control {
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 20px;
+        margin-bottom: 16px;
     }
 }
