@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Header, Todo } from 'components';
 import { CustomModal } from 'elements';
-import { getTodos, createTodoItem, deleteTodoItem } from 'services';
+import { getTodos, createTodoItem, updateTodoItem, deleteTodoItem } from 'services';
 
 export default function Board() {
 	const [listTodos, setListTodos] = useState([]);
@@ -45,13 +45,21 @@ export default function Board() {
     }
 
 	function handleEditItemForm(event) {
-        event.preventDefault();
-		console.log(selectedItem);
+		event.preventDefault();
+        const form = new FormData(event.target);
+        const req = {target_todo_id: selectedItem.todo_id};
+        form.forEach((value, key) => {
+            if (key === 'progress_percentage') {
+                req[key] = parseInt(value);
+            } else {
+                return req[key] = value}
+            }
+        );
+		updateTodoItem(selectedItem.todo_id, selectedItem.id, req, selectedItem.setfunc);
 	}
 
 	function handleDeleteItemForm(event) {
         event.preventDefault();
-		console.log(selectedItem);
         deleteTodoItem(selectedItem.todo_id, selectedItem.id, selectedItem.setfunc);
 	}
 

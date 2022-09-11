@@ -23,7 +23,7 @@ export default function Todo({id, title, description, setSelectedTodo, setSelect
             default:
                 setTheme('success-outline'); break;
         }
-    }, [theme])
+    }, [id, theme])
 
     function onClickCreate() {
         setVisibleCreateItemModal(true)

@@ -4,19 +4,21 @@ import propTypes from 'prop-types';
 import CheckCircle from 'assets/icons/check-circle.svg'
 import XCircle from 'assets/icons/x-circle.svg'
 
-export default function Progress(props) {
-    const [value, setValue] = useState(props.percentage !== null ? props.percentage : 0);
+export default function Progress({done, percentage}) {
+    const [value, setValue] = useState(percentage !== null ? percentage : 0);
     const [state, setState] = useState();
 
     useEffect(() => {
-        if (props.done === true || value === 100) {
+        setValue(percentage)
+
+        if (done === true || value === 100) {
             setState('complete');
-        } else if (props.done === false) {
+        } else if (done === false) {
             setState('failed');
         } else {
             setState(null);
         }
-    }, [props, value])
+    }, [value, done, percentage])
 
     return (
         <div className="progress-wrapper">

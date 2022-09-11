@@ -27,9 +27,14 @@ async function createTodoItem(id, req, setTodoitems) {
     getTodoItems(id, setTodoitems);
 }
 
+async function updateTodoItem(parentId, id, req, setTodoitems) {
+    let res = await api.patch(`/todos/${parentId}/items/${id}`, req).then((res) => {return res.data});
+    getTodoItems(parentId, setTodoitems);
+}
+
 async function deleteTodoItem(parentId, id, setTodoitems) {
     let res = await api.delete(`/todos/${parentId}/items/${id}`).then((res) => {return res.data});
     getTodoItems(parentId, setTodoitems);
 }
 
-export {getTodos, createTodo, getTodoItems, createTodoItem, deleteTodoItem}
+export {getTodos, createTodo, getTodoItems, createTodoItem, updateTodoItem, deleteTodoItem}

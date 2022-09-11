@@ -1,6 +1,6 @@
-import React, { useEffect, useState} from 'react';
+import React from 'react';
 import propTypes from 'prop-types';
-import { Progress, CustomModal, SettingDialog } from 'elements';
+import { Progress, SettingDialog } from 'elements';
 
 export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal}) {
 
