@@ -9,32 +9,38 @@ const api = axios.create({
 
 async function getTodos(setTodos) {
     let res = await api.get('/todos').then((res) => {return res.data});
+
+    for await (const item of res) {
+        const child = await api.get(`/todos/${item.id}/items`).then((res) => {return res.data});
+        item.items = child;
+    }
+
     setTodos(res);
 }
 
 async function createTodo(req, setTodos) {
     let res = await api.post('/todos', req).then((res) => {return res.data});
-    getTodos(setTodos);
+    await getTodos(setTodos);
 }
 
-async function getTodoItems(id, setTodoitems) {
-    let res = await api.get(`/todos/${id}/items`).then((res) => {return res.data});
-    setTodoitems(res);
-}
-
-async function createTodoItem(id, req, setTodoitems) {
+async function createTodoItem(id, req, setTodos) {
     let res = await api.post(`/todos/${id}/items`, req).then((res) => {return res.data});
-    getTodoItems(id, setTodoitems);
+    await getTodos(setTodos);
 }
 
-async function updateTodoItem(parentId, id, req, setTodoitems) {
+async function updateTodoItem(parentId, id, req, setTodos) {
     let res = await api.patch(`/todos/${parentId}/items/${id}`, req).then((res) => {return res.data});
-    getTodoItems(parentId, setTodoitems);
+    await getTodos(setTodos);
 }
 
-async function deleteTodoItem(parentId, id, setTodoitems) {
+async function moveTodoItem(parentId, id, req, setTodos) {
+    let res = await api.patch(`/todos/${parentId}/items/${id}`, req).then((res) => {return res.data});
+    await getTodos(setTodos);
+}
+
+async function deleteTodoItem(parentId, id, setTodos) {
     let res = await api.delete(`/todos/${parentId}/items/${id}`).then((res) => {return res.data});
-    getTodoItems(parentId, setTodoitems);
+    await getTodos(setTodos);
 }
 
-export {getTodos, createTodo, getTodoItems, createTodoItem, updateTodoItem, deleteTodoItem}
+export {getTodos, createTodo, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem}

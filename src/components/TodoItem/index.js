@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import { Progress, SettingDialog } from 'elements';
 
-export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal}) {
+export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
 
 	const selectedItem = {
 		id: id,
@@ -10,7 +10,16 @@ export default function TodoItem({id, parentId, name, done, progressPercentage, 
 		name: name,
 		done: done,
 		progress_percentage: progressPercentage,
-		setfunc: setListTodoItems
+	}
+
+	function onClickMoveRight() {
+		setSelectedItem(selectedItem);
+		handleMoveRight(selectedItem);
+	}
+
+	function onClickMoveLeft() {
+		setSelectedItem(selectedItem);
+		handleMoveLeft(selectedItem);
 	}
 
 	function onClickEdit() {
@@ -40,6 +49,8 @@ export default function TodoItem({id, parentId, name, done, progressPercentage, 
 						percentage={progressPercentage} 
 					/>
 					<SettingDialog 
+						moveRightHandler={onClickMoveRight}
+						moveLeftHandler={onClickMoveLeft}
 						editHandler={onClickEdit}
 						deleteHandler={onClickDelete}
 					/>
@@ -58,5 +69,7 @@ TodoItem.propTypes = {
 	empty: propTypes.bool,
     setSelectedItem: propTypes.func,
 	setVisibleEditModal: propTypes.func,
-    setVisibleDeleteModal: propTypes.func
+    setVisibleDeleteModal: propTypes.func,
+	handleMoveRight: propTypes.func,
+	handleMoveLeft: propTypes.func
 }

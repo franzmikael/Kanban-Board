@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Header, Todo } from 'components';
 import { CustomModal } from 'elements';
-import { getTodos, createTodoItem, updateTodoItem, deleteTodoItem } from 'services';
+import { getTodos, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem } from 'services';
 
 export default function Board() {
 	const [listTodos, setListTodos] = useState([]);
@@ -41,7 +41,7 @@ export default function Board() {
                 return req[key] = value}
             }
         );
-        createTodoItem(selectedTodo.id, req, selectedTodo.setfunc);
+        createTodoItem(selectedTodo.id, req, setListTodos);
     }
 
 	function handleEditItemForm(event) {
@@ -55,12 +55,42 @@ export default function Board() {
                 return req[key] = value}
             }
         );
-		updateTodoItem(selectedItem.todo_id, selectedItem.id, req, selectedItem.setfunc);
+		updateTodoItem(selectedItem.todo_id, selectedItem.id, req, setListTodos);
 	}
 
 	function handleDeleteItemForm(event) {
         event.preventDefault();
-        deleteTodoItem(selectedItem.todo_id, selectedItem.id, selectedItem.setfunc);
+        deleteTodoItem(selectedItem.todo_id, selectedItem.id, setListTodos);
+	}
+
+	function handleMoveRight(item) {
+		const todosIds = listTodos.map(todo => {return todo.id});
+		const current = todosIds.indexOf(item.todo_id);
+		const next = current+1;
+
+		if(next < todosIds.length) {
+			const req = {
+				target_todo_id: todosIds[next],
+				name: item.name,
+				progress_percentage: item.progress_percentage
+			};
+			moveTodoItem(item.todo_id, item.id, req, setListTodos);
+		}
+	}
+
+	function handleMoveLeft(item) {
+		const todosIds = listTodos.map(todo => {return todo.id});
+		const current = todosIds.indexOf(item.todo_id);
+		const prev = current-1;
+
+		if(prev >= 0) {
+			const req = {
+				target_todo_id: todosIds[prev],
+				name: item.name,
+				progress_percentage: item.progress_percentage
+			};
+			moveTodoItem(item.todo_id, item.id, req, setListTodos);
+		}
 	}
 
 	return (
@@ -69,19 +99,22 @@ export default function Board() {
 			<section className="container p-4">
 				<div className="row px-3">
 					{listTodos.map((todo) => {
-					return (
-						<Todo
-						key={todo.id}
-						id={todo.id}
-						title={todo.title}
-						description={todo.description}
-						setSelectedTodo={setSelectedTodo}
-						setSelectedItem={setSelectedItem}
-						setVisibleCreateItemModal={setVisibleCreateItemModal}
-						setVisibleEditModal={setVisibleEditModal}
-						setVisibleDeleteModal={setVisibleDeleteModal}
-						/>
-					)
+						return (
+							<Todo
+							key={todo.id}
+							id={todo.id}
+							title={todo.title}
+							description={todo.description}
+							items={todo?.items}
+							setSelectedTodo={setSelectedTodo}
+							setSelectedItem={setSelectedItem}
+							setVisibleCreateItemModal={setVisibleCreateItemModal}
+							setVisibleEditModal={setVisibleEditModal}
+							setVisibleDeleteModal={setVisibleDeleteModal}
+							handleMoveRight={handleMoveRight}
+							handleMoveLeft={handleMoveLeft}
+							/>
+						)
 					})}
 				</div>
 			</section>
