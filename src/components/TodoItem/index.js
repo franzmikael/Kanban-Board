@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
 import { Progress, SettingDialog } from 'elements';
 
-export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
+export default function TodoItem({id, parentId, name, done, progressPercentage, empty, listTodos, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
 
-	const selectedItem = {
+	const [todosIds, setTodosIds] = useState([]);
+	const [currentIndex, setCurrentIndex] = useState();
+	const [lastIndex, setLastIndex] = useState();
+
+	useEffect(() => {
+		if(listTodos) {
+			setTodosIds(listTodos.map(todo => {return todo.id}));
+		}
+	}, [])
+
+	useEffect(() => {
+		setLastIndex(todosIds.length)
+		setCurrentIndex(todosIds.indexOf(parentId))
+	}, [todosIds])
+	
+
+	let selectedItem = {
 		id: id,
 		todo_id: parentId,
 		name: name,
 		done: done,
-		progress_percentage: progressPercentage,
+		progress_percentage: `${progressPercentage}%`,
 	}
 
 	function onClickMoveRight() {
@@ -48,7 +64,9 @@ export default function TodoItem({id, parentId, name, done, progressPercentage, 
 						done={done} 
 						percentage={progressPercentage} 
 					/>
-					<SettingDialog 
+					<SettingDialog
+						currentIndex={currentIndex}
+						lastIndex={lastIndex}
 						moveRightHandler={onClickMoveRight}
 						moveLeftHandler={onClickMoveLeft}
 						editHandler={onClickEdit}
@@ -67,6 +85,8 @@ TodoItem.propTypes = {
 	done: propTypes.bool,
 	progressPercentage: propTypes.number,
 	empty: propTypes.bool,
+	listTodos: propTypes.array,
+	setListTodoItems: propTypes.func,
     setSelectedItem: propTypes.func,
 	setVisibleEditModal: propTypes.func,
     setVisibleDeleteModal: propTypes.func,

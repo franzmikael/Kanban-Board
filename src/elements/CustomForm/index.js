@@ -15,7 +15,7 @@ export default function CustomForm({formData, defaultValue}) {
 			return(
 				<Form.Group key={input.name}>
 					<Form.Label>{input.label}</Form.Label>
-					<Form.Control {...props} placeholder={input.placeholder} defaultValue={value} />
+					<Form.Control {...props} placeholder={input.placeholder} defaultValue={value} onChange={input.onChange}/>
 				</Form.Group>
 			)
 		})}

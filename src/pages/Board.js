@@ -36,7 +36,11 @@ export default function Board() {
         const req = {};
         form.forEach((value, key) => {
             if (key === 'progress_percentage') {
-                req[key] = parseInt(value);
+				if (key.includes('%')) {
+					req[key] = parseInt(value.slice(0, -1));
+				} else {
+					req[key] = parseInt(value);
+				}
             } else {
                 return req[key] = value}
             }
@@ -50,7 +54,11 @@ export default function Board() {
         const req = {target_todo_id: selectedItem.todo_id};
         form.forEach((value, key) => {
             if (key === 'progress_percentage') {
-                req[key] = parseInt(value);
+				if (key.includes('%')) {
+					req[key] = parseInt(value.slice(0, -1));
+				} else {
+					req[key] = parseInt(value);
+				}
             } else {
                 return req[key] = value}
             }
@@ -106,6 +114,7 @@ export default function Board() {
 							title={todo.title}
 							description={todo.description}
 							items={todo?.items}
+							listTodos={listTodos}
 							setSelectedTodo={setSelectedTodo}
 							setSelectedItem={setSelectedItem}
 							setVisibleCreateItemModal={setVisibleCreateItemModal}
