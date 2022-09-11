@@ -2,14 +2,20 @@ import React, { useEffect, useState} from 'react';
 import propTypes from 'prop-types';
 import { Progress, CustomModal, SettingDialog } from 'elements';
 
-export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setSelectedItem, setVisibleDeleteModal}) {
+export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal}) {
 
 	const selectedItem = {
 		id: id,
 		todo_id: parentId,
 		name: name,
 		done: done,
-		progress_percentage: progressPercentage
+		progress_percentage: progressPercentage,
+		setfunc: setListTodoItems
+	}
+
+	function onClickEdit() {
+		setVisibleEditModal(true);
+		setSelectedItem(selectedItem);
 	}
 
 	function onClickDelete() {
@@ -34,6 +40,7 @@ export default function TodoItem({id, parentId, name, done, progressPercentage, 
 						percentage={progressPercentage} 
 					/>
 					<SettingDialog 
+						editHandler={onClickEdit}
 						deleteHandler={onClickDelete}
 					/>
 				</div>
@@ -50,5 +57,6 @@ TodoItem.propTypes = {
 	progressPercentage: propTypes.number,
 	empty: propTypes.bool,
     setSelectedItem: propTypes.func,
+	setVisibleEditModal: propTypes.func,
     setVisibleDeleteModal: propTypes.func
 }

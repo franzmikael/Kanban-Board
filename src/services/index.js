@@ -27,4 +27,9 @@ async function createTodoItem(id, req, setTodoitems) {
     getTodoItems(id, setTodoitems);
 }
 
-export {getTodos, createTodo, getTodoItems, createTodoItem}
+async function deleteTodoItem(parentId, id, setTodoitems) {
+    let res = await api.delete(`/todos/${parentId}/items/${id}`).then((res) => {return res.data});
+    getTodoItems(parentId, setTodoitems);
+}
+
+export {getTodos, createTodo, getTodoItems, createTodoItem, deleteTodoItem}

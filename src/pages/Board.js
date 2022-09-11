@@ -1,20 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Header, Todo } from 'components';
 import { CustomModal } from 'elements';
-import { getTodos, createTodoItem } from 'services';
+import { getTodos, createTodoItem, deleteTodoItem } from 'services';
 
 export default function Board() {
 	const [listTodos, setListTodos] = useState([]);
 	const [selectedTodo, setSelectedTodo] = useState({});
 	const [selectedItem, setSelectedItem] = useState({});
     const [visibleCreateItemModal, setVisibleCreateItemModal] = useState(false);
+    const [visibleEditModal, setVisibleEditModal] = useState(false);
     const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 	
 	useEffect(() => {
 		getTodos(setListTodos);
 	}, [])
 
-    const createItemForm = [
+    const itemForm = [
         {
             type: 'text',
             name: 'name',
@@ -43,9 +44,15 @@ export default function Board() {
         createTodoItem(selectedTodo.id, req, selectedTodo.setfunc);
     }
 
+	function handleEditItemForm(event) {
+        event.preventDefault();
+		console.log(selectedItem);
+	}
+
 	function handleDeleteItemForm(event) {
         event.preventDefault();
 		console.log(selectedItem);
+        deleteTodoItem(selectedItem.todo_id, selectedItem.id, selectedItem.setfunc);
 	}
 
 	return (
@@ -63,6 +70,7 @@ export default function Board() {
 						setSelectedTodo={setSelectedTodo}
 						setSelectedItem={setSelectedItem}
 						setVisibleCreateItemModal={setVisibleCreateItemModal}
+						setVisibleEditModal={setVisibleEditModal}
 						setVisibleDeleteModal={setVisibleDeleteModal}
 						/>
 					)
@@ -72,11 +80,21 @@ export default function Board() {
 					
             <CustomModal
                 title='Create Task'
-                form={createItemForm}
+                form={itemForm}
                 formHandler={handleCreateItemForm}
 				btnName='Save Task'
                 visible={visibleCreateItemModal}
                 setVisible={setVisibleCreateItemModal}
+            />
+					
+			<CustomModal
+                title='Edit Task'
+                form={itemForm}
+				formValue={selectedItem}
+                formHandler={handleEditItemForm}
+				btnName='Save Task'
+                visible={visibleEditModal}
+                setVisible={setVisibleEditModal}
             />
 
 			<CustomModal
@@ -86,7 +104,6 @@ export default function Board() {
 				formHandler={handleDeleteItemForm}
 				visible={visibleDeleteModal}
 				setVisible={setVisibleDeleteModal}
-				selectedItem={selectedItem}
 			/>
 		</>
 	)

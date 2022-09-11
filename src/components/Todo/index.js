@@ -6,7 +6,7 @@ import { getTodoItems } from 'services';
 
 import PlusCircle from 'assets/icons/plus-circle.svg';
 
-export default function Todo({id, title, description, setSelectedTodo, setSelectedItem, setVisibleCreateItemModal, setVisibleDeleteModal}) {
+export default function Todo({id, title, description, setSelectedTodo, setSelectedItem, setVisibleCreateItemModal, setVisibleEditModal, setVisibleDeleteModal}) {
     const [listTodoItems, setListTodoItems] = useState([]);
     const [theme, setTheme] = useState();
 
@@ -50,7 +50,9 @@ export default function Todo({id, title, description, setSelectedTodo, setSelect
                                             name={item.name}
                                             done={item.done}
                                             progressPercentage={item.progress_percentage}
+                                            setListTodoItems={setListTodoItems}
                                             setSelectedItem={setSelectedItem}
+                                            setVisibleEditModal={setVisibleEditModal}
                                             setVisibleDeleteModal={setVisibleDeleteModal}
                                         />
                                     )
@@ -73,5 +75,6 @@ Todo.propTypes = {
     setSelectedTodo: propTypes.func,
     setSelectedItem: propTypes.func,
     setVisibleCreateItemModal: propTypes.func,
+    setVisibleEditModal: propTypes.func,
     setVisibleDeleteModal: propTypes.func
 }

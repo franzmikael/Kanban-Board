@@ -6,7 +6,7 @@ import { Button, CustomForm} from 'elements';
 import Xicon from 'assets/icons/x.svg';
 import Exclamation from 'assets/icons/exclamation.svg';
 
-export default function CustomModal({visible, setVisible, title, form, formHandler, isDeleteModal, deleteText, btnName, selectedItem}) {
+export default function CustomModal({visible, setVisible, title, form, formHandler, isDeleteModal, deleteText, btnName, formValue}) {
 
     let titleType = isDeleteModal ? 
         (<><img src={Exclamation} alt="!" />{title}</>) : title;
@@ -23,7 +23,7 @@ export default function CustomModal({visible, setVisible, title, form, formHandl
             </Modal.Header>
             <Form onSubmit={formHandler}>
                 <Modal.Body>
-                    {(isDeleteModal && deleteText) || <CustomForm formData={form} />}
+                    {(isDeleteModal && deleteText) || <CustomForm formData={form} defaultValue={formValue} />}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button isOutline onClick={() => {setVisible(false)}}>
@@ -48,5 +48,5 @@ CustomModal.propTypes = {
     isDeleteModal: propTypes.bool,
     deleteText: propTypes.string,
     btnName: propTypes.string,
-    selectedItem: propTypes.object
+    formValue: propTypes.object
 }
