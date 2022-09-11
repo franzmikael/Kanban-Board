@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Header, Todo } from 'components';
-import { CustomModal } from 'elements';
-import { getTodos, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem } from 'services';
+import { Header, Todo } from '../components';
+import { CustomModal } from '../elements';
+import { getTodos, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem } from '../services';
 
 export default function Board() {
 	const [listTodos, setListTodos] = useState([]);

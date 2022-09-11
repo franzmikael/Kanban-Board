@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import propTypes from 'prop-types';
-import { Button, Label } from 'elements';
-import { TodoItem } from 'components';
+import { Button, Label } from '../../elements';
+import { TodoItem } from '../../components';
 
-import PlusCircle from 'assets/icons/plus-circle.svg';
+import PlusCircle from '../../assets/icons/plus-circle.svg';
 
 export default function Todo({id, title, description, items, listTodos, setSelectedTodo, setSelectedItem, setVisibleCreateItemModal, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
     const [theme, setTheme] = useState();

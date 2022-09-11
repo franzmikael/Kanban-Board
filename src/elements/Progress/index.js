@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import propTypes from 'prop-types';
 
-import CheckCircle from 'assets/icons/check-circle.svg'
-import XCircle from 'assets/icons/x-circle.svg'
+import CheckCircle from '../../assets/icons/check-circle.svg'
+import XCircle from '../../assets/icons/x-circle.svg'
 
 export default function Progress({done, percentage}) {
     const [value, setValue] = useState(percentage !== null ? percentage : 0);

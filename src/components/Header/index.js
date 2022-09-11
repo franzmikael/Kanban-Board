@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Button, CustomModal } from 'elements';
-import Plus from 'assets/icons/plus.svg';
-import { createTodo } from 'services';
+import { Button, CustomModal } from '../../elements';
+import Plus from '../../assets/icons/plus.svg';
+import { createTodo } from '../../services';
 
 export default function Header(props) {
     const [visibleCreateTodoModal, setVisibleCreateTodoModal] = useState(false);

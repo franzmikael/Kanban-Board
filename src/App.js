@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Board from 'pages/Board';
-import 'assets/scss/style.scss';
+import Board from './pages/Board';
+import './assets/scss/style.scss';
 
 function App() {
   return (

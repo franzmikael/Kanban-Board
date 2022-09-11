@@ -2,11 +2,11 @@ import React from 'react';
 import propTypes from 'prop-types';
 import {Dropdown, DropdownButton} from 'react-bootstrap';
 
-import More from 'assets/icons/more-horizontal.svg';
-import ArrowRight from 'assets/icons/arrow-right.svg';
-import ArrowLeft from 'assets/icons/arrow-left.svg';
-import Edit from 'assets/icons/edit-alt.svg';
-import Trash from 'assets/icons/trash-alt.svg';
+import More from '../../assets/icons/more-horizontal.svg';
+import ArrowRight from '../../assets/icons/arrow-right.svg';
+import ArrowLeft from '../../assets/icons/arrow-left.svg';
+import Edit from '../../assets/icons/edit-alt.svg';
+import Trash from '../../assets/icons/trash-alt.svg';
 
 export default function SettingDialog({currentIndex, lastIndex, moveRightHandler, moveLeftHandler, editHandler, deleteHandler}) {
     return (
