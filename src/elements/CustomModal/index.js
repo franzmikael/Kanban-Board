@@ -4,7 +4,7 @@ import { Form, Modal } from 'react-bootstrap';
 import { Button, CustomForm} from '../../elements';
 
 import Xicon from '../../assets/icons/x.svg';
-import Exclamation from '../src/assets/icons/exclamation.svg';
+import Exclamation from '../../assets/icons/exclamation.svg';
 
 export default function CustomModal({visible, setVisible, title, form, formHandler, isDeleteModal, deleteText, btnName, formValue}) {
 
