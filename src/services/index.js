@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4NDgsImV4cCI6MTY2MzA3NzU0Mn0.Z4XhAxNJxZw1eeVavGLRZ4_tfPWESzPeqFZCLz6dRR0';
+const token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4NDgsImV4cCI6MTY2MzUxMjM4MX0.AeOeGUXhlHTkSnHJ6I-CmEyVbHvRKrZiE_wEw_VO5do';
 
 const api = axios.create({
     baseURL: `https://todos-project-api.herokuapp.com/`,
