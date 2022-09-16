@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSelected } from '../../store/board';
 import propTypes from 'prop-types';
 import { Progress, SettingDialog } from '../../elements';
 
-export default function TodoItem({id, parentId, name, done, progressPercentage, empty, listTodos, setListTodoItems, setSelectedItem, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
+export default function TodoItem({id, parentId, name, done, progressPercentage, empty, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
 
-	const [todosIds, setTodosIds] = useState([]);
+	const todoIds = useSelector(state => state.board.todoIds);
+	const dispatch = useDispatch();
+	
 	const [currentIndex, setCurrentIndex] = useState();
 	const [lastIndex, setLastIndex] = useState();
 
 	useEffect(() => {
-		if(listTodos) {
-			setTodosIds(listTodos.map(todo => {return todo.id}));
-		}
-	}, [])
-
-	useEffect(() => {
-		setLastIndex(todosIds.length)
-		setCurrentIndex(todosIds.indexOf(parentId))
-	}, [todosIds])
+		setLastIndex(todoIds.length)
+		setCurrentIndex(todoIds.indexOf(parentId))
+	}, [todoIds, parentId])
 	
 
 	let selectedItem = {
@@ -29,23 +27,23 @@ export default function TodoItem({id, parentId, name, done, progressPercentage, 
 	}
 
 	function onClickMoveRight() {
-		setSelectedItem(selectedItem);
 		handleMoveRight(selectedItem);
+		dispatch(setSelected(selectedItem));
 	}
 
 	function onClickMoveLeft() {
-		setSelectedItem(selectedItem);
 		handleMoveLeft(selectedItem);
+		dispatch(setSelected(selectedItem));
 	}
 
 	function onClickEdit() {
 		setVisibleEditModal(true);
-		setSelectedItem(selectedItem);
+		dispatch(setSelected(selectedItem));
 	}
 
 	function onClickDelete() {
 		setVisibleDeleteModal(true);
-		setSelectedItem(selectedItem);
+		dispatch(setSelected(selectedItem));
 	}
 
 	if(empty) {
@@ -85,9 +83,6 @@ TodoItem.propTypes = {
 	done: propTypes.bool,
 	progressPercentage: propTypes.number,
 	empty: propTypes.bool,
-	listTodos: propTypes.array,
-	setListTodoItems: propTypes.func,
-    setSelectedItem: propTypes.func,
 	setVisibleEditModal: propTypes.func,
     setVisibleDeleteModal: propTypes.func,
 	handleMoveRight: propTypes.func,

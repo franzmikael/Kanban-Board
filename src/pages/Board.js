@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setList, setItem, updateItem, moveItem, deleteItem } from '../store/board';
 import { Header, Todo } from '../components';
 import { CustomModal } from '../elements';
-import { getTodos, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem } from '../services';
+import { getAllTodos, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem } from '../services';
 
 export default function Board() {
-	const [listTodos, setListTodos] = useState([]);
-	const [selectedTodo, setSelectedTodo] = useState({});
-	const [selectedItem, setSelectedItem] = useState({});
+	const todoList = useSelector(state => state.board.todoList);
+	const todoIds = useSelector(state => state.board.todoIds);
+	const selected = useSelector(state => state.board.selected);
+	const dispatch = useDispatch();
+
     const [visibleCreateItemModal, setVisibleCreateItemModal] = useState(false);
     const [visibleEditModal, setVisibleEditModal] = useState(false);
     const [visibleDeleteModal, setVisibleDeleteModal] = useState(false);
 	
 	useEffect(() => {
-		getTodos(setListTodos);
-	}, [])
+		dispatch(getAllTodos(setList));
+	}, [dispatch])
 
     const itemForm = [
         {
@@ -45,13 +49,14 @@ export default function Board() {
                 return req[key] = value}
             }
         );
-        createTodoItem(selectedTodo.id, req, setListTodos);
+		
+		dispatch(createTodoItem(selected.id, req, setItem));
     }
 
 	function handleEditItemForm(event) {
 		event.preventDefault();
         const form = new FormData(event.target);
-        const req = {target_todo_id: selectedItem.todo_id};
+        const req = {target_todo_id: selected.todo_id};
         form.forEach((value, key) => {
             if (key === 'progress_percentage') {
 				if (key.includes('%')) {
@@ -63,50 +68,48 @@ export default function Board() {
                 return req[key] = value}
             }
         );
-		updateTodoItem(selectedItem.todo_id, selectedItem.id, req, setListTodos);
+		dispatch(updateTodoItem(selected.todo_id, selected.id, req, updateItem));
 	}
 
 	function handleDeleteItemForm(event) {
         event.preventDefault();
-        deleteTodoItem(selectedItem.todo_id, selectedItem.id, setListTodos);
+        dispatch(deleteTodoItem(selected.todo_id, selected.id, deleteItem));
 	}
 
 	function handleMoveRight(item) {
-		const todosIds = listTodos.map(todo => {return todo.id});
-		const current = todosIds.indexOf(item.todo_id);
+		const current = todoIds.indexOf(item.todo_id);
 		const next = current+1;
 
-		if(next < todosIds.length) {
+		if(next < todoIds.length) {
 			const req = {
-				target_todo_id: todosIds[next],
+				target_todo_id: todoIds[next],
 				name: item.name,
 				progress_percentage: item.progress_percentage
 			};
-			moveTodoItem(item.todo_id, item.id, req, setListTodos);
+			dispatch(moveTodoItem('right', item.todo_id, item.id, req, moveItem));
 		}
 	}
 
 	function handleMoveLeft(item) {
-		const todosIds = listTodos.map(todo => {return todo.id});
-		const current = todosIds.indexOf(item.todo_id);
+		const current = todoIds.indexOf(item.todo_id);
 		const prev = current-1;
 
 		if(prev >= 0) {
 			const req = {
-				target_todo_id: todosIds[prev],
+				target_todo_id: todoIds[prev],
 				name: item.name,
 				progress_percentage: item.progress_percentage
 			};
-			moveTodoItem(item.todo_id, item.id, req, setListTodos);
+			dispatch(moveTodoItem('left', item.todo_id, item.id, req, moveItem));
 		}
 	}
 
 	return (
 		<>
-			<Header setListTodos={setListTodos} />
+			<Header/>
 			<section className="container p-4">
 				<div className="row px-3">
-					{listTodos.map((todo) => {
+					{todoList.map((todo) => {
 						return (
 							<Todo
 							key={todo.id}
@@ -114,9 +117,7 @@ export default function Board() {
 							title={todo.title}
 							description={todo.description}
 							items={todo?.items}
-							listTodos={listTodos}
-							setSelectedTodo={setSelectedTodo}
-							setSelectedItem={setSelectedItem}
+							listTodos={todoList}
 							setVisibleCreateItemModal={setVisibleCreateItemModal}
 							setVisibleEditModal={setVisibleEditModal}
 							setVisibleDeleteModal={setVisibleDeleteModal}
@@ -140,7 +141,7 @@ export default function Board() {
 			<CustomModal
                 title='Edit Task'
                 form={itemForm}
-				formValue={selectedItem}
+				formValue={selected}
                 formHandler={handleEditItemForm}
 				btnName='Save Task'
                 visible={visibleEditModal}

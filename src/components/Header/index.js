@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setTodo } from '../../store/board';
 import { Button, CustomModal } from '../../elements';
 import Plus from '../../assets/icons/plus.svg';
 import { createTodo } from '../../services';
 
 export default function Header(props) {
+	const dispatch = useDispatch();
+
     const [visibleCreateTodoModal, setVisibleCreateTodoModal] = useState(false);
 
 	const createTodoForm = [
@@ -27,7 +31,7 @@ export default function Header(props) {
         form.forEach((value, key) => {
             return req[key] = value}
         );
-        createTodo(req, props.setListTodos);
+        dispatch(createTodo(req, setTodo));
     }
 
 	return (

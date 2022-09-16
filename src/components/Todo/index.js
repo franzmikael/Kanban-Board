@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setSelected } from '../../store/board';
 import propTypes from 'prop-types';
 import { Button, Label } from '../../elements';
 import { TodoItem } from '../../components';
 
 import PlusCircle from '../../assets/icons/plus-circle.svg';
 
-export default function Todo({id, title, description, items, listTodos, setSelectedTodo, setSelectedItem, setVisibleCreateItemModal, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
+export default function Todo({id, title, description, items, setVisibleCreateItemModal, setVisibleEditModal, setVisibleDeleteModal, handleMoveRight, handleMoveLeft}) {
+	const dispatch = useDispatch();
+
     const [theme, setTheme] = useState();
 
     useEffect(() => {
@@ -23,10 +27,8 @@ export default function Todo({id, title, description, items, listTodos, setSelec
     }, [id, theme])
 
     function onClickCreate() {
-        setVisibleCreateItemModal(true)
-        setSelectedTodo({
-            id: id
-        })
+        setVisibleCreateItemModal(true);
+        dispatch(setSelected({ id: id }));
     }
 
     return (
@@ -46,8 +48,6 @@ export default function Todo({id, title, description, items, listTodos, setSelec
                                             name={item.name}
                                             done={item.done}
                                             progressPercentage={item.progress_percentage}
-                                            listTodos={listTodos}
-                                            setSelectedItem={setSelectedItem}
                                             setVisibleEditModal={setVisibleEditModal}
                                             setVisibleDeleteModal={setVisibleDeleteModal}
                                             handleMoveRight={handleMoveRight}
@@ -71,9 +71,6 @@ Todo.propTypes = {
     title: propTypes.string,
     description: propTypes.string,
     items: propTypes.array,
-    listTodos: propTypes.array,
-    setSelectedTodo: propTypes.func,
-    setSelectedItem: propTypes.func,
     setVisibleCreateItemModal: propTypes.func,
     setVisibleEditModal: propTypes.func,
     setVisibleDeleteModal: propTypes.func,

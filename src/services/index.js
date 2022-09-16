@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4NDgsImV4cCI6MTY2MzUxMjM4MX0.AeOeGUXhlHTkSnHJ6I-CmEyVbHvRKrZiE_wEw_VO5do';
+const token = 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjo4NTgsImV4cCI6MTY2MzY1NzkzNH0.MvMWYGckFqoysTetNNLYEKCBC7xPwNA_5wQr21arDDk';
 
 const api = axios.create({
     baseURL: `https://todos-project-api.herokuapp.com/`,
     headers: {'Authorization': 'Bearer ' + token}
 })
 
-async function getTodos(setTodos) {
+const getAllTodos = (setTodos) => async (dispatch) => {
     let res = await api.get('/todos').then((res) => {return res.data});
 
     for await (const item of res) {
@@ -15,32 +15,32 @@ async function getTodos(setTodos) {
         item.items = child;
     }
 
-    setTodos(res);
+    dispatch(setTodos(res));
 }
 
-async function createTodo(req, setTodos) {
+const createTodo = (req, setter) => async (dispatch) => {
     let res = await api.post('/todos', req).then((res) => {return res.data});
-    await getTodos(setTodos);
+    dispatch(setter(res));
 }
 
-async function createTodoItem(id, req, setTodos) {
+const createTodoItem = (id, req, setter) => async (dispatch) => {
     let res = await api.post(`/todos/${id}/items`, req).then((res) => {return res.data});
-    await getTodos(setTodos);
+    dispatch(setter([id, res]));
 }
 
-async function updateTodoItem(parentId, id, req, setTodos) {
+const updateTodoItem = (parentId, id, req, setter) => async (dispatch) =>  {
     let res = await api.patch(`/todos/${parentId}/items/${id}`, req).then((res) => {return res.data});
-    await getTodos(setTodos);
+    dispatch(setter([parentId, id, res]));
 }
 
-async function moveTodoItem(parentId, id, req, setTodos) {
+const moveTodoItem = (direction, parentId, id, req, setter) => async (dispatch) => {
     let res = await api.patch(`/todos/${parentId}/items/${id}`, req).then((res) => {return res.data});
-    await getTodos(setTodos);
+    dispatch(setter([direction, parentId, id, res]));
 }
 
-async function deleteTodoItem(parentId, id, setTodos) {
+const deleteTodoItem = (parentId, id, setter) => async (dispatch) =>  {
     let res = await api.delete(`/todos/${parentId}/items/${id}`).then((res) => {return res.data});
-    await getTodos(setTodos);
+    dispatch(setter([parentId, id]));
 }
 
-export {getTodos, createTodo, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem}
+export {getAllTodos, createTodo, createTodoItem, updateTodoItem, moveTodoItem, deleteTodoItem}
